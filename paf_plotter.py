@@ -82,7 +82,7 @@ def locationfetch(paffile,querychr):
     if paffile is not None and querychr is not None:
         paf = paffile
         query = querychr
-        pafdataframe = pd.DataFrame([line.strip().split("\t")[0:12] for line in open(paffile)], 
+        pafdataframe = pd.DataFrame([line.strip().split("\t")[0:12] for line in open(paf)], 
         columns=["query", "query_length", "query_start", "query_end", "strand", "target", \
                                  "target_length", "target_start", "target_end", "residue_matches", 
                                                                 "alignment_length", "mapping_quality"])
@@ -99,7 +99,7 @@ def filterstrand(paffile, strand):
     if paffile is not None and strand is not None:
         paf = paffile
         querystrand = str(strand)
-        pafdataframe = pd.DataFrame([line.strip().split("\t")[0:12] for line in open(paffile)], \
+        pafdataframe = pd.DataFrame([line.strip().split("\t")[0:12] for line in open(paf)], \
                     columns=["query", "query_length", "query_start", "query_end", "strand", "target", \
                                         "target_length", "target_start", "target_end", "residue_matches", 
                                                                          "alignment_length", "mapping_quality"])
