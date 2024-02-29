@@ -69,3 +69,22 @@ def pafplotter(paffile = None, \
                                  "target_length", "target_start", "target_end", "residue_matches", 
                                                                 "alignment_length", "mapping_quality"])
         return sns.scatterplot(pafdataframe, x="query", y="mapping_quality")
+
+def locationfetch(paffile,querychr):
+    """"
+    a location fetcher for the paf alignment as a 
+    list with the coordinates. Here you can provide
+    the query of the alignment file and it will give you 
+    a list of the fectched queries which you can directly 
+    pass to the streamlit application
+    """
+
+    if paffile is not None and querychr is not None:
+        paf = paffile
+        query = querychr
+        pafdataframe = pd.DataFrame([line.strip().split("\t")[0:12] for line in open(paffile)], 
+        columns=["query", "query_length", "query_start", "query_end", "strand", "target", \
+                                 "target_length", "target_start", "target_end", "residue_matches", 
+                                                                "alignment_length", "mapping_quality"])
+        querycorrdinates = list(pafdataframe.where(pafdataframe["query"] == querychr).dropna().iloc())
+        return querycorrdinates
