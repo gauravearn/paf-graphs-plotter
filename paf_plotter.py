@@ -88,3 +88,27 @@ def locationfetch(paffile,querychr):
                                                                 "alignment_length", "mapping_quality"])
         querycorrdinates = list(pafdataframe.where(pafdataframe["query"] == querychr).dropna().iloc())
         return querycorrdinates
+
+def filterstrand(paffile, strand):
+    """"
+    fetching the alignment length on the query strand 
+    for the specific strand. It takes the stand as the 
+    str and then locates across the dataframe and then
+    map the int to the str conversion. 
+    """
+    if paffile is not None and strand is not None:
+        paf = paffile
+        querystrand = str(strand)
+        pafdataframe = pd.DataFrame([line.strip().split("\t")[0:12] for line in open(paffile)], \
+                    columns=["query", "query_length", "query_start", "query_end", "strand", "target", \
+                                        "target_length", "target_start", "target_end", "residue_matches", 
+                                                                         "alignment_length", "mapping_quality"])
+        start = list(map(lambda num: int(num),list(pafdataframe. \
+                                                         where(pafdataframe["strand"] == "+").dropna()["query_start"])))
+        end = list(map(lambda num: int(num),list(pafdataframe. \
+                                                      where(pafdataframe["strand"] == "+").dropna()["query_end"])))
+        querystrandalign = []
+        for i in range(len(start)):
+            querystrandalign.append(end[i] - start[i])
+        querylength = pd.DataFrame(querystrandalign, columns = ["alignedlength"]).plot(kind = "bar")
+    return querylength
