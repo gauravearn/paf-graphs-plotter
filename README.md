@@ -77,7 +77,7 @@ def pafplotter(paffile = None, \
         return sns.scatterplot(pafdataframe, x="query", y="mapping_quality")
 ```
 
-Gaurav Sablok \
+Gaurav \
 Academic Staff Member \
 Bioinformatics \
 Institute for Biochemistry and Biology \
